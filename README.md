@@ -14,7 +14,7 @@ Sign in with the demo account:
 | | |
 |---|---|
 | Email | `demo@duit-demo.example` |
-| Password | `<DEMO_PASSWORD>` |
+| Password | `12345678` |
 
 It's loaded with a month of sample data (accounts, spending, a budget, a
 savings goal, a loan and an investment), so every screen has something to
