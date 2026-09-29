@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- "D." wordmark, line style, v3 ink-1 (light) #0b0b0b -->
+  <g stroke="#0b0b0b" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M20 13v38" />
+    <path d="M20 13h5c11.6 0 19 8.5 19 19s-7.4 19-19 19h-5" />
+  </g>
+  <circle cx="52.5" cy="47.5" r="4.5" fill="#0b0b0b" />
+</svg>

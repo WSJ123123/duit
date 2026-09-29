@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb; --page: #f9f9f7;
+  --ink-1: #0b0b0b; --ink-2: #52514e; --ink-3: #898781;
+  --grid: #e1e0d9; --baseline: #c3c2b7;
+  --border: rgba(11,11,11,0.10);
+  --accent: #2a78d6; --accent-soft: #cde2fb; --accent-track: #b7d3f6;
+  --series-2: #eb6834; --series-3: #1baf7a;
+  --good-text: #006300; --good: #0ca30c;
+  --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  --chip: #f0efec; --dim: rgba(11,11,11,.45);
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2352514e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #1a1a19; --page: #0d0d0d;
+    --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
+    --grid: #2c2c2a; --baseline: #383835;
+    --border: rgba(255,255,255,0.10);
+    --accent: #3987e5; --accent-soft: #16324f; --accent-track: #1c5cab;
+    --series-2: #d95926; --series-3: #199e70;
+    --good-text: #0ca30c;
+    --chip: #262624; --dim: rgba(0,0,0,.55);
+    --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23c3c2b7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19; --page: #0d0d0d;
+  --ink-1: #ffffff; --ink-2: #c3c2b7; --ink-3: #898781;
+  --grid: #2c2c2a; --baseline: #383835;
+  --border: rgba(255,255,255,0.10);
+  --accent: #3987e5; --accent-soft: #16324f; --accent-track: #1c5cab;
+  --series-2: #d95926; --series-3: #199e70;
+  --good-text: #0ca30c;
+  --chip: #262624; --dim: rgba(0,0,0,.55);
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23c3c2b7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+}
+
+body {
+  background: var(--page);
+  color: var(--ink-1);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Native select chevrons hug the right border; replace with a token-colored
+   chevron at consistent inset. !important so it survives the inline
+   `background` shorthands components use for field surfaces. */
+select {
+  appearance: none;
+  background-image: var(--select-chevron) !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.65rem center !important;
+  background-size: 1rem 1rem !important;
+  padding-right: 2.1rem;
+}
+
+/* Owner ruling Q41 ("Pad the headers", Plan 9): the phone's fixed amounts eye
+ * (AmountsToggle variant="mobile" — 44 × 44, right 14px, ruling 5) keeps its
+ * place, and the page headers under it give way. `.eye-clear` pads a header
+ * row, below `md` only, so its right edge stops a small gap short of the eye:
+ * inset + size + gap, less the <main> padding (p-6) the row already sits in.
+ * The three sizes mirror AmountsToggle's literal style — change them together. */
+:root {
+  --eye-size: 44px;
+  --eye-inset: 14px;
+  --eye-gap: 8px;
+  --main-pad: 1.5rem;
+}
+@media (width < 48rem) {
+  .eye-clear {
+    padding-right: calc(var(--eye-inset) + var(--eye-size) + var(--eye-gap) - var(--main-pad));
+  }
+}
