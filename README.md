@@ -5,17 +5,21 @@ Duit is a mobile-first personal-finance app for day-to-day money in Malaysia
 works offline, and the rest of the app turns those entries into budgets,
 goals, bills, net worth and an investment portfolio.
 
-## Live demo
+## Try it live
 
-**https://finance-platform-drab.vercel.app**
+**👉 https://finance-platform-drab.vercel.app**
+
+Sign in with the demo account:
 
 | | |
 |---|---|
 | Email | `demo@duit-demo.example` |
 | Password | `<DEMO_PASSWORD>` |
 
-The demo account is filled with a month of fake data and is reset
-periodically, so feel free to add, edit and delete things.
+It's loaded with a month of sample data (accounts, spending, a budget, a
+savings goal, a loan and an investment), so every screen has something to
+show. Feel free to add, edit or delete anything; the demo is reset
+regularly. On a phone, "Add to Home Screen" installs it as an app.
 
 ## What it does
 
@@ -109,41 +113,19 @@ src/db/             data access (+ integration tests against local Supabase)
 src/lib/            pure domain logic: money, parser, import, budget, portfolio…
 supabase/migrations schema, RLS policies, views and functions
 e2e/                Playwright specs
-scripts/            icon generator, demo-account seeder
+scripts/            icon generator, demo-data seeder
 ```
 
-## Running locally
+## Testing
 
-Requirements: Node 22+, Docker, and the Supabase CLI (`npx supabase`).
+About 1,300 automated tests cover the app:
 
-```bash
-npm ci
-npx supabase start          # local Postgres + Auth; applies supabase/migrations
-cp .env.example .env.local  # then paste the URL / anon / service_role keys
-                            # printed by `npx supabase status`
-npm run dev                 # http://localhost:3000
-```
+- **Unit tests (Vitest):** money maths, the quick-entry parser, CSV import,
+  budgets, recurring rules and portfolio valuation.
+- **Database tests:** run against a real Postgres. They sign in as two
+  separate users and prove neither can read or change the other's data
+  (`src/db/rls.test.ts`).
+- **End-to-end tests (Playwright):** the quick-entry flow, and a walk of
+  every page checking that "Hide amounts" leaves no figure on screen.
 
-Create an account from the login page, or seed a demo user (see below).
-
-## Tests
-
-```bash
-npm run typecheck   # next typegen + tsc --noEmit
-npm run lint
-npm test            # Vitest: ~1,300 unit + database integration tests
-npm run test:rls    # RLS isolation suite only
-npm run test:e2e    # Playwright (starts the app; needs the local stack)
-```
-
-The database suites create throwaway users on the local Supabase stack, so
-`npx supabase start` must be running first.
-
-## Demo data
-
-`npm run seed:demo` creates (or resets) the demo user on whichever project
-`.env.local` points at, and fills it with accounts, a month of transactions,
-a budget, an emergency fund, a car loan, a stock holding and recurring rules.
-The password is typed at run time and never stored. The script only touches
-the demo user's rows, and it refuses any email that doesn't end in
-`.example`.
+TypeScript runs in strict mode, and linting is enforced.
